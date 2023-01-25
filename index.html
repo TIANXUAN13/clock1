@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title> 时钟 </title>
+
+
+
+<style>
+	body{
+		height: 100%;
+		  width: 100%;
+		  background: url('img/z.jpg') repeat;
+		  background-size: cover;
+		  position: absolute;
+		  overflow: hidden;
+	}
+	
+	p{
+		text-align: center;
+		color: azure;
+		font-size: 40px;
+		font:italic bold 40px "楷体" ;
+	}
+	#p{
+	
+		color: cornsilk;
+		
+	}
+</style>
+</head>
+<body>
+
+<p id="demo"></p>
+<p id="weather1"></p>
+<script>
+	function mytime(){
+		var d=new Date();
+		var years=d.getFullYear();
+		var month=d.getMonth()+1;
+		var date=d.getDate()
+		var hour=d.getHours();
+		var Minute=d.getMinutes();
+		var seconds=d.getSeconds();
+		 seconds = seconds < 10 ? '0' + seconds : seconds;
+		var day=d.getDay(); 
+		var dayx;
+		if(day==1)
+		{
+			dayx="星期一";
+		}
+		if(day==2)
+		{
+			dayx="星期二";
+		}
+		if(day==3)
+		{
+			dayx="星期三";
+		}
+		if(day==4)
+		{
+			dayx="星期四";
+		}
+		if(day==5)
+		{
+			dayx="星期五";
+		}
+		if(day==6)
+		{
+			dayx="星期六";
+		}
+		if(day==7)
+		{
+			dayx="星期天"
+		}
+		return "现在是："+years+"年"+month+"月"+date+"日"+hour+"："+Minute+"："+seconds+dayx;
+	}
+	
+	setInterval(function(){
+		document.getElementById("demo").innerHTML = mytime()},100);
+	
+	
+	
+	
+</script>
+<br>
+<br>
+<iframe name="weather_inc" 
+	src="http://i.tianqi.com/index.php?c=code&id=7" 
+	style="border:solid 1px rgb(212,210,208)" 
+	width="260" height="130" frameborder="0" 
+	marginwidth="0" marginheight="0" scrolling="no">
+</iframe>
+<br>
+<br>
+
+
+
+
+</body>
+</html>
