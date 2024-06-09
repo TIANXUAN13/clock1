@@ -8,7 +8,7 @@ permissions:
 jobs:
   html:
     name: 打包发布
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
 
     steps:
     - name: 读取仓库内容
@@ -18,4 +18,4 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
-        folder: build
+        folder: dist
