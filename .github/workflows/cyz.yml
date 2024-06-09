@@ -10,12 +10,12 @@ jobs:
     name: 打包发布
     runs-on: ubuntu
 
-  steps:
-  - name: 读取仓库内容
-    uses: actions/checkout@v4
+    steps:
+    - name: 读取仓库内容
+      uses: actions/checkout@v4
 
-  - name: 部署
-    uses: JamesIves/github-pages-deploy-action@v4
-    with:
-      branch: gh-pages
-      folder: build
+    - name: 部署
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: build
