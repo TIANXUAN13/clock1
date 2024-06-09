@@ -12,7 +12,8 @@ jobs:
 
   steps:
   - name: 读取仓库内容
-    uses: action/checkout@v4
+    uses: actions/checkout@v4
+
   - name: 部署
     uses: JamesIves/github-pages-deploy-action@v4
     with:
