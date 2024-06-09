@@ -27,6 +27,12 @@
 		color: cornsilk;
 		
 	}
+
+	.weather-widget {
+	border: 1px solid rgb(212, 210, 208);
+	display: inline-block; /* 或其他合适的布局方式 */
+	z-index: 100;
+	}
 </style>
 </head>
 <body>
@@ -34,71 +40,63 @@
 <p id="demo"></p>
 <p id="weather1"></p>
 <script>
-	function mytime(){
-		var d=new Date();
-		var years=d.getFullYear();
-		var month=d.getMonth()+1;
-		var date=d.getDate()
-		var hour=d.getHours();
-		var Minute=d.getMinutes();
-		var seconds=d.getSeconds();
-		 seconds = seconds < 10 ? '0' + seconds : seconds;
-		var day=d.getDay(); 
-		var dayx;
-		if(day==1)
-		{
-			dayx="星期一";
-		}
-		if(day==2)
-		{
-			dayx="星期二";
-		}
-		if(day==3)
-		{
-			dayx="星期三";
-		}
-		if(day==4)
-		{
-			dayx="星期四";
-		}
-		if(day==5)
-		{
-			dayx="星期五";
-		}
-		if(day==6)
-		{
-			dayx="星期六";
-		}
-		if(day==7)
-		{
-			dayx="星期天"
-		}
-		return "现在是："+years+"年"+month+"月"+date+"日"+hour+"："+Minute+"："+seconds+dayx;
-	}
-	
-	setInterval(function(){
-		document.getElementById("demo").innerHTML = mytime()},100);
-	
-	
-	
-	
+    function getCurrentTime() {
+        const d = new Date();
+        const year = d.getFullYear();
+        const month = d.getMonth() + 1; // 注意：JavaScript中的月份是从0开始的
+        const date = d.getDate();
+        const hour = d.getHours();
+        const minute = d.getMinutes();
+        const second = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds(); // 保证秒数始终为两位数
+        const daysOfWeek = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        const dayName = daysOfWeek[d.getDay()]; // 直接根据索引获取星期几的名称
+    
+        return `现在是：${year}年${month}月${date}日 ${hour}:${minute}:${second} ${dayName}`;
+    }
+
+    setInterval(() => {
+        document.getElementById("demo").innerText = getCurrentTime();
+    }, 1000); // 每秒更新一次时间
 </script>
+<p id="luckyNumber" style="color:aquamarine"></p> <!-- 修改了ID，统一使用luckyNumber -->
 <br>
 <br>
-<div >
-	<iframe name="weather_inc" 
-	src="http://i.tianqi.com/index.php?c=code&id=7" 
-	style="border:solid 1px rgb(212,210,208)" 
-	width="260" height="130" frameborder="0" 
-	marginwidth="0" marginheight="0" scrolling="no">
-</iframe>
-</div>
-
-<br>
-<br>
+<aside class="weather-widget">
+	<iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=7" width="240" height="140" frameborder="0" scrolling="no"></iframe>
+</aside>
 
 
 
+<br>
+<button id="drawButton">抽取今日幸运数字</button>
+<!-- <p id="luckyNumber"></p> -->
+
+<script>
+    function getLuckyNumber() {
+        const today = new Date().toISOString().slice(0, 10); // 获取今天的日期，格式为YYYY-MM-DD
+        const luckyNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const randomIndex = Math.floor(Math.random() * luckyNumbers.length);
+        const luckyNum = luckyNumbers[randomIndex];
+        
+        localStorage.setItem('lastDrawDate', today); // 存储抽取日期
+        localStorage.setItem('luckyNumber', luckyNum); // 存储幸运数字
+        
+        document.getElementById('luckyNumber').innerText = "今日幸运数字: " + luckyNum;
+        document.getElementById('drawButton').disabled = true; // 抽取后禁用按钮
+    }
+
+    window.onload = function() {
+        const lastDrawDate = localStorage.getItem('lastDrawDate'); // 获取上次抽取日期
+        const storedLuckyNumber = localStorage.getItem('luckyNumber'); // 获取存储的幸运数字
+        
+        if (lastDrawDate === new Date().toISOString().slice(0, 10)) { // 如果今天已经抽取过
+            document.getElementById('luckyNumber').innerText = "今日幸运数字: " + storedLuckyNumber;
+            document.getElementById('drawButton').disabled = true;
+        } else {
+            document.getElementById('drawButton').addEventListener('click', getLuckyNumber);
+        }
+    };
+</script>
 
 </body>
 </html>
